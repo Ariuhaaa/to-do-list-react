@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import "./App.css";
+import Modal from "./components/modal";
 
 //id, title, isDone
 function App() {
@@ -8,20 +9,35 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   const [doneTotal, setDoneTotal] = useState(0);
+  const [ID, setId] = useState("0");
+  const [modal, setModal] = useState(0);
 
   // const [del, setDel] = useState(0);
 
   const addTask = () => {
     const newObj = {
-      id: tasks.length,
+      // id: createId(),
       title: task,
       isDone: false,
     };
     const newArr = [...tasks];
-    newArr.push(newObj);
+    if (ID !== "0") {
+      newArr.map((e) => {
+        if (e.id === ID) {
+          e.title = task;
+        }
+        return e;
+      });
+    } else {
+      newArr.push(newObj);
+    }
+    // const newArr = [...tasks];
+
     console.log(newObj);
     setTasks(newArr);
     setTask("");
+    setId("0");
+    setModal(false);
   };
 
   const onDoneTask = (id) => {
@@ -41,6 +57,10 @@ function App() {
     });
 
     setTasks(objList);
+  };
+
+  const handleModal = () => {
+    setModal(!modal);
   };
 
   // const del = () => {
@@ -71,6 +91,12 @@ function App() {
             <button className="btn btn-primary" onClick={addTask}>
               +Add
             </button>
+            <button className="btn btn-primary" onClick={handleModal}>
+              Modal
+            </button>
+            {/* <div className="btn btn-light" onClick={setModal}>
+              Haah
+            </div> */}
           </div>
         </div>
       </div>
@@ -95,6 +121,16 @@ function App() {
             </div>
           ))}
         </div>
+        {Modal && (
+          <Modal
+            modal={modal}
+            setModal={handleModal}
+            task={task}
+            id={ID}
+            setTask={setTask}
+            addTask={addTask}
+          />
+        )}
       </div>
     </div>
   );

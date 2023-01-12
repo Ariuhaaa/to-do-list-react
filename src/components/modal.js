@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Modal({ setModal, modal, id, task, setTask, addTask }) {
+export default function Modal({ setModal, modal, id, task, setTask, addTask, taskObj }) {
   const dn = modal ? "block" : "none";
   return (
     <div className="modal" style={{ display: dn }} onClick={setModal}>
@@ -31,3 +31,35 @@ export default function Modal({ setModal, modal, id, task, setTask, addTask }) {
     </div>
   );
 }
+
+
+
+
+// export default function Toolbar() {
+//   return (
+//   <div>
+//   <PlayButton movieName="Kiki's Delivery Service" />
+//   <UploadButton />
+//   </div>
+//   );
+//   }
+
+//   function PlayButton({ movieName }) {
+//     function handlePlayClick() {
+//     alert(`Playing ${movieName}!`);
+//     }
+//     return (
+//     <Button onClick={handlePlayClick}>
+//     Play "{movieName}"
+//     </Button>
+//     );
+//     }
+
+//   function UploadButton() {
+
+//       return (
+//       <Button onClick={() => alert('Uploading!')}>
+//       Upload Image
+//       </Button>
+//       );
+//       }

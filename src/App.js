@@ -20,7 +20,7 @@ function App() {
   const [ID, setId] = useState("0");
   const [modal, setModal] = useState(0);
 
-  const [taskObj, setTaskObj] = useState{init};
+  const [taskObj, setTaskObj] = useState(init);
 
   // const [del, setDel] = useState(0);
 
@@ -136,8 +136,8 @@ function App() {
             id={ID}
             setTask={setTask}
             addTask={addTask}
-            taskObj = {taskObj}
-            setTaskObj = {setTaskObj}
+            taskObj={taskObj}
+          // setTaskObj = {setTaskObj}
           />
         )}
       </div>

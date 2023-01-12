@@ -5,12 +5,22 @@ import Modal from "./components/modal";
 
 //id, title, isDone
 function App() {
-  const [task, setTask] = useState(""); // input
+  const init = {
+    id: "",
+    task: "",
+    type: 0,
+    isImportant: false,
+    isDone: false,
+  };
+
+  const [task, setTask] = useState([]); // input
   const [tasks, setTasks] = useState([]);
 
   const [doneTotal, setDoneTotal] = useState(0);
   const [ID, setId] = useState("0");
   const [modal, setModal] = useState(0);
+
+  const [taskObj, setTaskObj] = useState{init};
 
   // const [del, setDel] = useState(0);
 
@@ -94,9 +104,6 @@ function App() {
             <button className="btn btn-primary" onClick={handleModal}>
               Modal
             </button>
-            {/* <div className="btn btn-light" onClick={setModal}>
-              Haah
-            </div> */}
           </div>
         </div>
       </div>
@@ -125,10 +132,12 @@ function App() {
           <Modal
             modal={modal}
             setModal={handleModal}
-            task={task}
+            // task={task}
             id={ID}
             setTask={setTask}
             addTask={addTask}
+            taskObj = {taskObj}
+            setTaskObj = {setTaskObj}
           />
         )}
       </div>

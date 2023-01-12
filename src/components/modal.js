@@ -25,7 +25,6 @@ export default function Modal({ setModal, modal, id, task, setTask, addTask }) {
           <div className="btn btn-light" onClick={setModal}>
             Haah
           </div>
-
           <hr />
         </div>
       </div>

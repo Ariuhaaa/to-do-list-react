@@ -5,5 +5,8 @@
   margin-top: 150px;
   margin-left: 800px;
   background-color: aliceblue;
+  display: none;
 }
-
+.modalBtn {
+  margin-top: 20px;
+}

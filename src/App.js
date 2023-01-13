@@ -7,46 +7,38 @@ import Modal from "./components/modal";
 function App() {
   const init = {
     id: "",
-    task: "",
+    title: "",
     type: 0,
     isImportant: false,
     isDone: false,
   };
 
-  const [task, setTask] = useState([]); // input
   const [tasks, setTasks] = useState([]);
-
   const [doneTotal, setDoneTotal] = useState(0);
-  const [ID, setId] = useState("0");
   const [modal, setModal] = useState(0);
-
   const [taskObj, setTaskObj] = useState(init);
 
-  // const [del, setDel] = useState(0);
-
   const addTask = () => {
-    const newObj = {
-      // id: createId(),
-      title: task,
-      isDone: false,
-    };
-    const newArr = [...tasks];
-    if (ID !== "0") {
-      newArr.map((e) => {
-        if (e.id === ID) {
-          e.title = task;
-        }
-        return e;
-      });
-    } else {
-      newArr.push(newObj);
-    }
-    // const newArr = [...tasks];
+    console.log(taskObj);
 
-    console.log(newObj);
-    setTasks(newArr);
-    setTask("");
-    setId("0");
+    // const newArr = [...tasks];
+    // newArr.push(taskObj);
+    // setTasks(newArr);
+
+    if (taskObj.id == "") {
+      setTasks([...tasks, { ...taskObj, id: tasks.length }]);
+    } else {
+      const newArr = tasks.map((e) => {
+        if (e.id == taskObj.id) {
+          return { ...e, title: taskObj.title };
+        } else {
+          return e;
+        }
+      });
+      setTasks(newArr);
+    }
+
+    setTaskObj(init);
     setModal(false);
   };
 
@@ -83,6 +75,11 @@ function App() {
     setTasks(uldsen);
   };
 
+  const handleEdit = (a, b, c) => {
+    setModal(true);
+    setTaskObj({ ...taskObj, id: a, title: b, type: c });
+  };
+
   return (
     <div className="container">
       <div className="row mt-4">
@@ -91,16 +88,16 @@ function App() {
           <p>Нийт {tasks.length}</p>
           <p>Хийгдсэн {doneTotal}</p>
           <div className="d-flex gap-3">
-            <input
+            {/* <input
               className="form-control"
               type="text"
               value={task}
               onChange={(e) => setTask(e.target.value)}
               placeholder="Таскаа оруулна уу"
-            />
-            <button className="btn btn-primary" onClick={addTask}>
+            /> */}
+            {/* <button className="btn btn-primary" onClick={addTask}>
               +Add
-            </button>
+            </button> */}
             <button className="btn btn-primary" onClick={handleModal}>
               Modal
             </button>
@@ -118,9 +115,15 @@ function App() {
                   onChange={() => onDoneTask(e.id)}
                 />
                 <h4>{e.title}</h4>
+                <h4>{e.type == "1" ? "Work" : "Personal"}</h4>
               </div>
               <div>
-                <button className="btn btn-warning">Edit</button>
+                <button
+                  className="btn btn-warning"
+                  onClick={() => handleEdit(e.id, e.title, e.type)}
+                >
+                  Edit
+                </button>
                 <button className="btn btn-danger" onClick={() => objDel(e.id)}>
                   Delete
                 </button>
@@ -128,18 +131,14 @@ function App() {
             </div>
           ))}
         </div>
-        {Modal && (
-          <Modal
-            modal={modal}
-            setModal={handleModal}
-            // task={task}
-            id={ID}
-            setTask={setTask}
-            addTask={addTask}
-            taskObj={taskObj}
-          // setTaskObj = {setTaskObj}
-          />
-        )}
+
+        <Modal
+          modal={modal} //true, false
+          setModal={handleModal}
+          addTask={addTask}
+          taskObj={taskObj}
+          setTaskObj={setTaskObj}
+        />
       </div>
     </div>
   );
